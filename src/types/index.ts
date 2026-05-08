@@ -1,37 +1,49 @@
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RouteProp } from '@react-navigation/native';
+
 export interface Stock {
   symbol: string;
   name: string;
   price: number;
   change: number;
+  changePercent: number;
   high: number;
   low: number;
-  volume?: number[];
-  priceHistory?: number[];
-}
-
-export interface WatchlistItem extends Stock {
-  addedAt: string;
+  open: number;
+  volume: number;
+  marketCap: string;
+  sector: string;
+  color: string;
+  priceHistory: number[];
+  priceLabels: string[];
+  volumeHistory: number[];
+  isCustom?: boolean;
 }
 
 export interface PortfolioItem {
   id: string;
-  tickerSymbol: string;
-  companyName: string;
+  symbol: string;
+  name: string;
   quantity: number;
   purchasePrice: number;
   currentPrice: number;
-  purchaseDate: string;
+  dateOfPurchase: string;
 }
 
-export interface PortfolioSummary {
-  totalValue: number;
-  totalProfitLoss: number;
-  totalProfitLossPercentage: number;
-}
+export type RootStackParamList = {
+  MainTabs: undefined;
+  StockDetail: { symbol: string };
+  AddPortfolio: undefined;
+  EditPortfolio: { item: PortfolioItem };
+};
 
-export interface ChartData {
-  labels: string[];
-  datasets: {
-    data: number[];
-  }[];
-}
+export type TabParamList = {
+  Home: undefined;
+  Watchlist: undefined;
+  Portfolio: undefined;
+  Settings: undefined;
+};
+
+export type RootNavProp = NativeStackNavigationProp<RootStackParamList>;
+export type StockDetailRouteProp = RouteProp<RootStackParamList, 'StockDetail'>;
+export type EditPortfolioRouteProp = RouteProp<RootStackParamList, 'EditPortfolio'>;

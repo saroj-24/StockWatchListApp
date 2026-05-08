@@ -1,97 +1,283 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Stock Watchlist App
+A fully offline React Native mobile application built with TypeScript that lets users browse stocks, manage a personal watchlist, track portfolio investments, and monitor profit/loss — all powered by local mock data with no internet connection required.
 
-# Getting Started
+---
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Screens at a Glance
 
-## Step 1: Start Metro
+| Screen | Description |
+|---|---|
+| Home | Browse all stocks, search by name/symbol/sector, add to watchlist |
+| Watchlist | View saved stocks, swipe/tap to delete |
+| Stock Detail | Price trend chart, volume chart, day stats |
+| Portfolio | P&L summary, best/worst performers, full stock list |
+| Add Portfolio Stock | Form to add a stock with all 6 required fields |
+| Edit Portfolio Stock | Pre-filled form to update any stock entry |
+| Settings | Toggle dark/light mode, view available symbols |
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Setup Instructions
 
-```sh
-# Using npm
-npm start
+### Prerequisites
 
-# OR using Yarn
-yarn start
+Make sure the following are installed on your machine before starting:
+
+- **Node.js** ≥ 18.x — [nodejs.org](https://nodejs.org)
+- **npm** ≥ 9.x or **Yarn** ≥ 1.22
+- **React Native CLI** — `npm install -g react-native`
+- **Android Studio** (for Android) with an AVD emulator or physical device
+- **Xcode** ≥ 14 (macOS only, for iOS)
+- **CocoaPods** (macOS only) — `sudo gem install cocoapods`
+- **JDK 17** — required for React Native 0.85
+
+---
+
+### Step 1 — Clone the Repository
+
+```bash
+git clone https://github.com/your-username/StockWatchlistApp.git
+cd StockWatchlistApp
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Step 2 — Install Node Dependencies
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install
 ```
 
-### iOS
+---
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+### Step 3 — iOS Setup (macOS only)
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+cd ios
+pod install
+cd ..
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
+### Step 4 — Android Setup
+
+In `android/app/build.gradle`, add the following line at the very **bottom** of the file (required for Material Icons to render):
+
+```gradle
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+### Step 5 — Run the App
 
-# OR using Yarn
-yarn ios
+**Android:**
+
+```bash
+npx react-native run-android
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+**iOS (macOS only):**
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```bash
+npx react-native run-ios
+```
 
-## Step 3: Modify your app
+**Start Metro bundler separately (optional):**
 
-Now that you have successfully run the app, let's make changes!
+```bash
+npx react-native start --reset-cache
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+> **Important:** Always run with `--reset-cache` after installing new packages or modifying `babel.config.js`.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### Troubleshooting
 
-## Congratulations! :tada:
+| Problem | Fix |
+|---|---|
+| Icons not showing on Android | Confirm `fonts.gradle` line is in `android/app/build.gradle` |
+| App crashes immediately on startup | Ensure `babel.config.js` includes `'react-native-reanimated/plugin'` |
+| Metro can't resolve a module | Run `npx react-native start --reset-cache` |
+| iOS build fails | Run `cd ios && pod install && cd ..` then rebuild |
+| AsyncStorage not persisting | Reinstall app on device/emulator to clear stale state |
 
-You've successfully run and modified your React Native App. :partying_face:
+---
 
-### Now what?
+## 📦 Dependencies
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+| Package | Version | Purpose |
+|---|---|---|
+| `react` | 19.2.3 | Core UI library |
+| `react-native` | 0.85.3 | Mobile framework |
+| `@react-navigation/native` | latest | Navigation container |
+| `@react-navigation/native-stack` | latest | Stack (screen-to-screen) navigation |
+| `@react-navigation/bottom-tabs` | latest | Bottom tab bar navigation |
+| `react-native-screens` | latest | Native screen optimization |
+| `react-native-safe-area-context` | latest | Safe area insets |
+| `react-native-gesture-handler` | latest | Touch/swipe gestures |
+| `react-native-reanimated` | latest | Smooth delete animations |
+| `react-native-svg` | latest | Custom SVG line & bar charts |
+| `react-native-vector-icons` | latest | Material Design icons |
+| `@react-native-async-storage/async-storage` | latest | Persistent local storage |
+| `@react-native-community/datetimepicker` | latest | Native date picker for portfolio form |
 
-# Troubleshooting
+---
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Project Structure
 
-# Learn More
+```
+StockWatchlistApp/
+│
+├── App.tsx                          # Root component — wraps all providers
+│
+├── src/
+│   │
+│   ├── types/
+│   │   └── index.ts                 # TypeScript interfaces (Stock, PortfolioItem, nav types)
+│   │
+│   ├── data/
+│   │   └── stocks.json              # Local mock data — 8 stocks with full price/volume history
+│   │
+│   ├── theme/
+│   │   └── theme.ts                 # Light and dark theme token definitions
+│   │
+│   ├── context/
+│   │   ├── ThemeContext.tsx          # Dark/light mode state + toggle, persisted via AsyncStorage
+│   │   └── AppContext.tsx           # Watchlist + Portfolio CRUD state, persisted via AsyncStorage
+│   │
+│   ├── hooks/                       # Custom hooks (assignment requirement)
+│   │   ├── usePortfolioStats.ts     # Calculates total P&L, per-stock stats, best/worst performer
+│   │   └── useStockSearch.ts        # Search/filter logic + stock symbol lookup
+│   │
+│   ├── components/
+│   │   ├── StockAvatar.tsx          # Coloured circular avatar with stock symbol initials
+│   │   ├── StockCard.tsx            # Reusable card for the Home stock list
+│   │   ├── WatchlistCard.tsx        # Card with animated delete for the Watchlist screen
+│   │   ├── PortfolioCard.tsx        # Card showing shares, buy price, current price, P&L
+│   │   ├── EmptyState.tsx           # Reusable empty/error state with icon + optional CTA
+│   │   └── charts/
+│   │       ├── SimpleLineChart.tsx  # Custom SVG line chart with gradient fill
+│   │       └── SimpleBarChart.tsx   # Custom SVG bar chart with gradient fill
+│   │
+│   ├── screens/
+│   │   ├── HomeScreen.tsx           # Stock list, search bar, add-to-watchlist input
+│   │   ├── WatchlistScreen.tsx      # Filtered stock list with delete functionality
+│   │   ├── StockDetailScreen.tsx    # Full detail view with charts and watchlist toggle
+│   │   ├── PortfolioScreen.tsx      # Portfolio overview with P&L summary card
+│   │   ├── AddPortfolioScreen.tsx   # Form to add a new stock to portfolio
+│   │   ├── EditPortfolioScreen.tsx  # Pre-filled form to update an existing portfolio entry
+│   │   └── SettingsScreen.tsx       # Dark mode toggle + app info
+│   │
+│   └── navigation/
+│       └── AppNavigator.tsx         # Stack navigator + Bottom tab navigator setup
+│
+├── android/
+│   └── app/
+│       └── build.gradle             # ← Add fonts.gradle line here for vector icons
+│
+├── ios/
+│   └── Podfile                      # iOS dependency config
+│
+├── babel.config.js                  # Must include reanimated plugin
+└── tsconfig.json                    # TypeScript compiler config
+```
 
-To learn more about React Native, take a look at the following resources:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### Core Requirements
+
+- [x] Stock list screen with symbol, name, price, and price change
+- [x] Add stock to watchlist via symbol input with error/success feedback
+- [x] Remove stock from watchlist with animated delete button
+- [x] Stock detail screen with day high, day low, open price, and change
+- [x] Portfolio screen with full stock list
+- [x] Add portfolio stock form (all 6 fields: symbol, name, quantity, purchase price, current price, date)
+- [x] Per-stock profit/loss display
+- [x] Total portfolio value and overall P&L
+- [x] Edit portfolio stock (pre-filled form)
+- [x] Delete portfolio stock with confirmation dialog
+- [x] Line chart for price trend
+- [x] Bar chart for volume
+- [x] Empty state (watchlist, portfolio)
+- [x] Error state (invalid stock symbol)
+- [x] React Navigation (stack + bottom tabs)
+- [x] Functional components with React Hooks throughout
+
+### Bonus Features
+
+- [x] AsyncStorage persistence (watchlist, portfolio, theme preference survive app restarts)
+- [x] Search/filter on Home screen (searches by symbol, company name, and sector)
+- [x] Dark mode / light mode toggle (Settings screen, persisted)
+- [x] Custom hooks (`usePortfolioStats`, `useStockSearch`)
+- [x] Best/worst performer cards on Portfolio screen
+- [x] Time period tabs on charts (1D, 1W, 1M, 3M, 1Y, 5Y)
+- [x] Animated card removal on Watchlist screen
+
+---
+
+## Assumptions and Decisions Made
+
+### Data & Offline Strategy
+
+**All data is static and bundled locally.** There is no API integration, network request, or live price feed. The `stocks.json` file serves as the single source of truth for stock metadata, price history, and volume history. This satisfies the "offline-first" constraint in the assignment and removes any dependency on external services or API keys.
+
+**Price history is simulated with 13 data points** (roughly 2 weeks of daily prices). Different time period selections (1D, 1W, 1M, etc.) simply slice this array to different lengths rather than fetching different datasets. In a production app these would be separate API calls.
+
+### Portfolio Current Price
+
+When a user adds a stock to their portfolio, the **current price field is auto-populated** if the symbol matches a known stock in `stocks.json`. The user can override this value. This was added for convenience since the app has no live price feed.
+
+The stored `currentPrice` in a `PortfolioItem` is a **snapshot** taken at the time of entry, not a live-updating value. This is the correct offline behaviour — in a live app this value would be refreshed from an API.
+
+### Symbol Validation
+
+Watchlist additions are validated against the `stocks.json` dataset only. Any symbol not present in the 8 bundled stocks will show an error. The add-to-portfolio form does not restrict symbols to this list (to allow users to manually enter any ticker with custom data).
+
+### Navigation Architecture
+
+A ** Stack Navigator wrapping a Bottom Tab Navigator** was chosen as this is the standard React Native pattern for apps with:
+- Tab-level screens (Home, Watchlist, Portfolio, Settings)
+- Detail/form screens pushed over the tabs (Stock Detail, Add/Edit Portfolio)
+
+This means the tab bar correctly disappears on detail screens without requiring nested navigators per tab.
+
+### P&L Calculation
+
+Profit/Loss is computed as:
+
+```
+P&L ($) = (currentPrice - purchasePrice) × quantity
+P&L (%) = ((currentPrice - purchasePrice) / purchasePrice) × 100
+```
+
+This logic lives entirely inside the `usePortfolioStats` custom hook, so it is never duplicated between `PortfolioScreen` and `PortfolioCard`.
+
+### No Class Components
+
+The entire codebase uses **functional components** with hooks. No class components were used. This aligns with modern React Native practice and the assignment's explicit requirement.
+
+### Icon Library
+
+**`react-native-vector-icons` (MaterialIcons)** was used over alternatives like `@expo/vector-icons` or `react-native-paper` because:
+- It is the most widely used icon set for React Native CLI projects
+- It does not require Expo
+- Material Icons are visually consistent with the provided design mockup
+
+### Chart Library Choice
+
+**Custom SVG charts via `react-native-svg`** were used instead of `react-native-chart-kit`, `victory-native`, or `recharts` because:
+- Third-party chart libraries frequently have peer dependency conflicts across React Native versions
+- The custom implementation gives full control over colours, gradients, curves, and grid lines
+- It produces smaller bundle sizes with no transitive dependencies
+
+### TypeScript Strictness
+
+All navigation prop types are explicitly typed using `@react-navigation` generics. The `RootStackParamList` and `TabParamList` types in `src/types/index.ts` ensure that every `navigation.navigate()` call is type-checked at compile time, preventing incorrect screen name or parameter bugs.
+
+---
+
+##Author
+Saroj Yadav
+
